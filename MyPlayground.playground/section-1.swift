@@ -114,3 +114,35 @@ for (key, value) in interestingNumbers​ {
 
 println(String(largest))
 println(type)
+
+// While loops
+
+var n = 2
+while n < 100 {
+    n = n * 2
+}
+
+n
+
+// do while
+var m = 2
+do {
+    m = m * 2
+} while m < 100
+
+m
+
+// For loops
+var firstExample = 0
+
+for i in 0..<4 {
+    firstExample += i
+}
+
+var secondExample = 0
+for var i = 0; i < 4; ++i {
+    secondExample += i
+}
+
+println(firstExample)
+println(secondExample)
