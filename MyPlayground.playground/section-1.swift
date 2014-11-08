@@ -378,3 +378,93 @@ counter.incrementBy(2, numberOfTimes: 7)
 let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
 let sideLength = optionalSquare?.sideLength
 sideLength
+
+
+/* Enumerations and Structures */
+enum Rank: Int{
+    case Ace = 1
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack, Queen, King
+    func simpleDesc() -> String {
+        switch self{
+        case .Ace:
+            return "ace"
+        case .Jack:
+            return "jack"
+        case .Queen:
+            return "queen"
+        case .King:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+
+let ace = Rank.Ace
+let aceRawValue = ace.rawValue
+
+
+func compareCards(first: Rank, second: Rank) -> Bool {
+    return first.rawValue == second.rawValue
+}
+
+compareCards(Rank.Jack, Rank.Jack)
+compareCards(Rank.Jack, Rank.Queen)
+
+enum Suit {
+    case Spades, Hearts, Diamonds, Clubs
+    func simpleDesc() -> String {
+        switch self {
+        case .Spades:
+            return "spades"
+        case .Hearts:
+            return "hearts"
+        case .Diamonds:
+            return "diamonds"
+        case .Clubs:
+            return "clubs"
+        }
+    }
+    func colour() -> String {
+        switch self {
+        case .Hearts, .Diamonds:
+            return "red"
+        case .Spades, .Clubs:
+            return "black"
+        default:
+            return "joker"
+        }
+    }
+}
+
+let hearts = Suit.Hearts
+let heartsDesc = hearts.simpleDesc()
+let heartsColour = hearts.colour()
+
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    
+    func simpleDesc() -> String {
+        return "The \(rank.simpleDesc()) of \(suit.simpleDesc()) "
+    }
+}
+
+let threeOfSpades = Card(rank: .Three, suit: .Spades)
+let threeOfSpadesDes = threeOfSpades.simpleDesc()
+
+enum ServerResponse {
+    case Result(String, String)
+    case Error(String)
+}
+
+let success = ServerResponse.Result("0600", "1800")
+let failure = ServerResponse.Error("Out of cheese.")
+
+switch success {
+case let .Result(sunrise, sunset):
+    let serverResponse = "Sunrise-Sunset = \(sunrise)-\(sunset)."
+case let .Error(error):
+    let serverResponse = "Failure ... \(error)"
+}
