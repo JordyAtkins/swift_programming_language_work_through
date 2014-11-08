@@ -468,3 +468,86 @@ case let .Result(sunrise, sunset):
 case let .Error(error):
     let serverResponse = "Failure ... \(error)"
 }
+
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    mutating func adjust()
+}
+
+class SimpleClass: ExampleProtocol {
+    var simpleDescription : String = "A very simple class."
+    var prop: Int = 90210
+    func adjust() {
+        simpleDescription += " Now with extra adjustmentness"
+    }
+}
+
+var a = SimpleClass()
+a.adjust()
+let aDesc = a.simpleDescription
+
+struct SimpleStruct: ExampleProtocol {
+    var simpleDescription: String = "A simple struct"
+    mutating func adjust() {
+        simpleDescription += " (adjusted)"
+    }
+}
+
+var b = SimpleStruct()
+b.adjust()
+let bDesc = b.simpleDescription
+
+enum SimpleEnum : ExampleProtocol{
+    case Base, Adjusted
+    
+    var simpleDescription: String {
+        get {
+            return self.getDescription()
+        }
+    }
+    
+    func getDescription() -> String{
+        switch self{
+        case Base:
+            return "Simple"
+        case .Adjusted:
+            return "Adjusted"
+        }
+    }
+    
+    mutating func adjust() -> Void {
+        self = SimpleEnum.Adjusted
+    }
+}
+
+var c = SimpleEnum.Base
+c.simpleDescription
+c.adjust()
+c.simpleDescription
+
+extension Int: ExampleProtocol {
+    var simpleDescription: String {
+        return "the number \(self)"
+    }
+    
+    mutating func adjust() {
+        self = 42
+    }
+}
+
+7.simpleDescription
+
+protocol AbsVal {
+    var absoluteValue: Double { get }
+}
+
+extension Double: AbsVal {
+    var absoluteValue: Double {
+        return Double.abs(self)
+    }
+}
+
+(-23.23).absoluteValue
+
+let protocolValue: ExampleProtocol = a
+protocolValue.simpleDescription
