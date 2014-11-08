@@ -551,3 +551,37 @@ extension Double: AbsVal {
 
 let protocolValue: ExampleProtocol = a
 protocolValue.simpleDescription
+
+func repeat<T>(item: T, times: Int) -> [T] {
+    var result = [T]()
+    for i in 0..<times {
+        result.append(item)
+    }
+    
+    return result
+}
+
+repeat("knock", 4)
+
+enum OptionalValue<T> {
+    case None
+    case Some(T)
+}
+var possibleInt: OptionalValue<Int> = .None
+possibleInt = .Some(100)
+
+func anyCommonElements <T, U where T: SequenceType, U: SequenceType, T.Generator.Element: Equatable, T.Generator.Element == U.Generator.Element> (lhs: T, rhs: U) -> Bool {
+    
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    
+    
+    return false
+}
+
+anyCommonElements([1,3,5,6,2,9], [0,4,7,3])
